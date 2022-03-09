@@ -19,7 +19,6 @@ import { CONSTANTS } from '@constants/constants';
 export class EditDialogComponent implements OnInit {
   @Input() sendingData: boolean = false;
   @Output() submitAction = new EventEmitter<{
-    productId: number;
     product: Product;
   }>();
   public sizes: Array<string> = CONSTANTS.SIZES;
@@ -38,9 +37,10 @@ export class EditDialogComponent implements OnInit {
   }
 
   initializeForm(): void {
-    const { sku, name, brand, size, price, imageUrl } = this.product;
+    const { id, sku, name, brand, size, price, imageUrl } = this.product;
 
     this.productForm = this.builder.group({
+      id: [id, Validators.required],
       sku: [
         sku,
         [
@@ -60,7 +60,6 @@ export class EditDialogComponent implements OnInit {
   submitForm(data: Product): void {
     if (this.productForm.valid) {
       this.submitAction.emit({
-        productId: this.product.id,
         product: data,
       });
     }

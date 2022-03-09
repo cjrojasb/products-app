@@ -10,7 +10,8 @@
       "@interfaces/*": ["app/interfaces/*"],
       "@shared/*": ["app/shared/*"],
       "@guards/*": ["app/guards/*"],
-      "@constants/*": ["app/constants/*"]
+      "@constants/*": ["app/constants/*"],
+      "@state/*": ["app/state/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProductRoutingModule } from './product-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@modules/shared.module';
 import { MaterialModule } from '@modules/material.module';
 
 import { ProductComponent } from './product.component';
@@ -28,6 +29,7 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     ProductRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
     MaterialModule,
   ],
 })

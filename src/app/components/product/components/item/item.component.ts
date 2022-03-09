@@ -1,10 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { AppState } from '@state/app.state';
 import { EditDialogComponent } from './../edit-dialog/edit-dialog.component';
 import { DeleteDialogComponent } from './../delete-dialog/delete-dialog.component';
 import { ProductService } from '@services/product.service';
 import { SnackBarService } from '@services/snack-bar.service';
 import { Product } from '@interfaces/Product';
+import { editProduct, deleteProduct } from '@state/actions/products.actions';
 
 @Component({
   selector: 'app-item',
@@ -17,7 +20,8 @@ export class ItemComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private productService: ProductService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {}
@@ -41,8 +45,8 @@ export class ItemComponent implements OnInit {
     );
 
     dialog.componentInstance.product = productSelected;
-    dialog.componentInstance.submitAction.subscribe(({ productId, product }) =>
-      this.editProduct(productId, product, dialog)
+    dialog.componentInstance.submitAction.subscribe(({ product }) =>
+      this.editProduct(product, dialog)
     );
   }
 
@@ -77,10 +81,15 @@ export class ItemComponent implements OnInit {
     });
   }
 
-  editProduct(productId: number, product: Product, dialog: any): void {
+  editProduct(product: Product, dialog: any): void {
     dialog.componentInstance.sendingData = true;
-    this.productService.updateProduct(productId, product).subscribe(
+    this.productService.updateProduct(product.id, product).subscribe(
       (res) => {
+        this.store.dispatch(
+          editProduct({
+            product: product,
+          })
+        );
         dialog.close();
         this.snackBarService.launchSnackBar(
           'Producto editado correctamente.',
@@ -98,10 +107,15 @@ export class ItemComponent implements OnInit {
     );
   }
 
-  deleteProduct(productId: number, dialog: any): void {
+  deleteProduct(id: number, dialog: any): void {
     dialog.componentInstance.sendingData = true;
-    this.productService.deleteProduct(productId).subscribe(
+    this.productService.deleteProduct(id).subscribe(
       (res) => {
+        this.store.dispatch(
+          deleteProduct({
+            id: id,
+          })
+        );
         dialog.close();
         this.snackBarService.launchSnackBar(
           'Producto eliminado correctamente.',

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '@state/app.state';
+import { loadProducts } from '@state/actions/products.actions';
 
 @Component({
   selector: 'app-product',
@@ -6,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.dispatch(loadProducts());
+  }
 }

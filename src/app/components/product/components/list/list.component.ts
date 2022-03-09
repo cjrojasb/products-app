@@ -1,6 +1,12 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '@services/product.service';
-import { Product } from '@interfaces/Product';
+import { Store } from '@ngrx/store';
+import { AppState } from '@state/app.state';
+import {
+  selectLoading,
+  selectListProducts,
+  selectListLengthProducts
+} from '@state/selectors/products.selector';
 
 @Component({
   selector: 'app-list',
@@ -8,21 +14,15 @@ import { Product } from '@interfaces/Product';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  products: Product[] = [];
-  constructor(private productService: ProductService) {}
+  loading$: Observable<boolean> = new Observable();
+  products$: Observable<any> = new Observable();
+  productsLength$: Observable<number> = new Observable();
+
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.getProducts();
-  }
-
-  getProducts(): void {
-    this.productService.getProducts().subscribe(
-      (res) => {
-        this.products = res;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.loading$ = this.store.select(selectLoading);
+    this.products$ = this.store.select(selectListProducts);
+    this.productsLength$ = this.store.select(selectListLengthProducts);
   }
 }

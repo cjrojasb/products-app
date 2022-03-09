@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { AppState } from '@state/app.state';
 import { AddDialogComponent } from '../add-dialog/add-dialog.component';
 import { ProductService } from '@services/product.service';
 import { SnackBarService } from '@services/snack-bar.service';
 import { Product } from '@interfaces/Product';
-SnackBarService;
+import { addProduct } from '@state/actions/products.actions';
 
 @Component({
   selector: 'app-add',
@@ -15,7 +17,8 @@ export class AddComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private productService: ProductService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {}
@@ -40,8 +43,13 @@ export class AddComponent implements OnInit {
   addProduct(data: Product, dialog: any): void {
     dialog.componentInstance.sendingData = true;
     this.productService.setProduct(data).subscribe(
-      (res) => {
+      (res: Product) => {
         dialog.close();
+        this.store.dispatch(
+          addProduct({
+            product: res,
+          })
+        );
         this.snackBarService.launchSnackBar(
           'Producto agregado correctamente.',
           'success-snackbar'
