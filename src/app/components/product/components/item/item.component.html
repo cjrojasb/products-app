@@ -1,0 +1,20 @@
+<mat-card class="box-item-card">
+  <button (click)="openDialog(product, 'delete')" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="box-content-card" (click)="openDialog(product, 'edit')">
+    <div
+      class="item-card-image"
+      [ngStyle]="{ 'background-image': 'url(' + product.imageUrl + ')' }"
+    ></div>
+    <mat-card-content class="box-item-text mt-3 mb-0">
+      <b class="text-brand d-block">{{ product.brand }}</b>
+      <div class="my-2">
+        <b class="text-name">{{ product.name }}</b>
+      </div>
+      <div class="box-price">
+        <span class="text-price">${{ product.price }}</span>
+      </div>
+    </mat-card-content>
+  </div>
+</mat-card>

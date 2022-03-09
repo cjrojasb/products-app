@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Eliminar Producto</h2>
+<mat-dialog-content>
+  <p class="m-0">
+    ¿Estás seguro que quieres eliminar el producto
+    <span class="border-light fw-bolder">{{ product.name }}</span
+    >?
+  </p>
+  <div class="my-2">
+    <mat-checkbox color="primary" [(ngModel)]="accepted"
+      >Sí, quiero eliminarlo.</mat-checkbox
+    >
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close>Cancelar</button>
+  <button
+    (click)="delete()"
+    [disabled]="!accepted"
+    [ngClass]="'cust-button-submit'"
+    color="warn"
+    mat-flat-button
+  >
+    <ng-container [ngSwitch]="sendingData">
+      <ng-container *ngSwitchCase="false">Eliminar</ng-container>
+      <ng-container *ngSwitchCase="true">
+        <mat-spinner diameter="20" [ngClass]="'cust-mat-spinner'"></mat-spinner>
+      </ng-container>
+    </ng-container>
+  </button>
+</mat-dialog-actions>

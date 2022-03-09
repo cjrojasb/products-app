@@ -1,0 +1,20 @@
+.cust-button-submit {
+  align-items: center;
+  border-radius: 3px;
+  display: flex;
+  height: 38px;
+  justify-content: center;
+  max-width: 110px;
+  width: 110px;
+}
+
+.cust-button-submit[disabled] {
+  background-color: #a8a7a4;
+  border: 1px solid #a8a7a4;
+  cursor: not-allowed;
+}
+
+::ng-deep .cust-mat-spinner circle,
+.cust-mat-spinner circle {
+  stroke: #fff;
+}

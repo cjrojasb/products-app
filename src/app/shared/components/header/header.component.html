@@ -1,0 +1,25 @@
+<mat-toolbar class="custom-toolbar">
+  <div class="header-section">
+    <button [routerLink]="'/product'" [routerLinkActive]="['link-active']" mat-button>
+      PRODUCTAPP
+    </button>
+  </div>
+  <div class="header-section">
+    <ng-container [ngSwitch]="getIsLogged()">
+      <ng-container *ngSwitchCase="true">
+        <button mat-icon-button [matMenuTriggerFor]="login">
+          <mat-icon>person</mat-icon>
+        </button>
+        <mat-menu #login="matMenu">
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Cerrar Sesión</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+      <ng-container *ngSwitchCase="false">
+        <button mat-button [routerLink]="'/login'">Iniciar Sesión</button>
+      </ng-container>
+    </ng-container>
+  </div>
+</mat-toolbar>

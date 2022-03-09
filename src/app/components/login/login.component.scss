@@ -1,0 +1,21 @@
+.box-content {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-title {
+  font-size: 32px;
+  font-weight: normal;
+  margin: 1rem 0;
+}
+
+.box-card-action {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 0;
+}
+

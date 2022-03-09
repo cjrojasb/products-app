@@ -1,0 +1,19 @@
+.custom-toolbar {
+  // background-color: #ee5601;
+  border-bottom: solid 1px #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  color: black;
+  display: flex;
+  font-size: 14px;
+  height: 60px;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.header-section {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 0 0.5rem;
+}
