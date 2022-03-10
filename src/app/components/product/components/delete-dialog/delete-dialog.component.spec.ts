@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MaterialModule } from '@modules/material.module';
 
 import { DeleteDialogComponent } from './delete-dialog.component';
 
@@ -8,9 +10,13 @@ describe('DeleteDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DeleteDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [DeleteDialogComponent],
+      imports: [MaterialModule],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -21,5 +27,11 @@ describe('DeleteDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('delete', () => {
+    spyOn(component.deleteAction, 'emit');
+    component.delete();
+    expect(component.deleteAction.emit).toHaveBeenCalled();
   });
 });

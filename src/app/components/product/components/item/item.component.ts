@@ -18,7 +18,7 @@ export class ItemComponent implements OnInit {
   @Input() product: Product;
 
   constructor(
-    private dialog: MatDialog,
+    public dialog: MatDialog,
     private productService: ProductService,
     private snackBarService: SnackBarService,
     private store: Store<AppState>
@@ -39,10 +39,11 @@ export class ItemComponent implements OnInit {
 
   async openEditDialog(product: Product): Promise<void> {
     const productSelected: Product = await this.getProduct(product.id);
-    const dialog = this.dialog.open(
-      EditDialogComponent,
-      this.getDialogConfig()
-    );
+    const dialog = this.dialog.open(EditDialogComponent, {
+      width: '700px',
+      height: 'auto',
+      autoFocus: false,
+    });
 
     dialog.componentInstance.product = productSelected;
     dialog.componentInstance.submitAction.subscribe(({ product }) =>
@@ -52,24 +53,16 @@ export class ItemComponent implements OnInit {
 
   async openDeleteDialog(product: Product): Promise<void> {
     const productSelected: Product = await this.getProduct(product.id);
-    const dialog = this.dialog.open(
-      DeleteDialogComponent,
-      this.getDialogConfig()
-    );
+    const dialog = this.dialog.open(DeleteDialogComponent, {
+      width: '700px',
+      height: 'auto',
+      autoFocus: false,
+    });
 
     dialog.componentInstance.product = productSelected;
     dialog.componentInstance.deleteAction.subscribe(({ productId }) =>
       this.deleteProduct(productId, dialog)
     );
-  }
-
-  getDialogConfig(): MatDialogConfig {
-    const matDialogConfig = new MatDialogConfig();
-    matDialogConfig.width = '700px';
-    matDialogConfig.height = 'auto';
-    matDialogConfig.autoFocus = false;
-
-    return matDialogConfig;
   }
 
   getProduct(id: number): Promise<Product> {

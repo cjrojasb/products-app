@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AppState } from '@state/app.state';
 import { AddDialogComponent } from '../add-dialog/add-dialog.component';
@@ -15,7 +15,7 @@ import { addProduct } from '@state/actions/products.actions';
 })
 export class AddComponent implements OnInit {
   constructor(
-    private dialog: MatDialog,
+    public dialog: MatDialog,
     private productService: ProductService,
     private snackBarService: SnackBarService,
     private store: Store<AppState>
@@ -24,20 +24,15 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {}
 
   openDialog(): void {
-    const dialog = this.dialog.open(AddDialogComponent, this.getDialogConfig());
+    const dialog = this.dialog.open(AddDialogComponent, {
+      width: '700px',
+      height: 'auto',
+      autoFocus: false,
+    });
 
     dialog.componentInstance.submitAction.subscribe((data) =>
       this.addProduct(data, dialog)
     );
-  }
-
-  getDialogConfig(): MatDialogConfig {
-    const matDialogConfig = new MatDialogConfig();
-    matDialogConfig.width = '700px';
-    matDialogConfig.height = 'auto';
-    matDialogConfig.autoFocus = false;
-
-    return matDialogConfig;
   }
 
   addProduct(data: Product, dialog: any): void {
@@ -59,7 +54,7 @@ export class AddComponent implements OnInit {
         dialog.componentInstance.sendingData = false;
         dialog.close();
         this.snackBarService.launchSnackBar(
-          'Ocurrio un error al crear el producto.',
+          'Ocurrio un error al agregar el producto.',
           'danger-snackbar'
         );
       }

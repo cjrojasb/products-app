@@ -15,10 +15,6 @@ export class AuthService {
     window.location.href = this.authUrl;
   }
 
-  public isLogged(): string {
-    return this.cookieService.get('JWT');
-  }
-
   public checkIsLogged(): boolean {
     return this.cookieService.check('JWT');
   }
