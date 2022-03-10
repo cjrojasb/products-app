@@ -14,9 +14,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ROOT_REDUCERS } from '@state/app.state';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductsEffects } from '@state/effects/products.effects';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ErrorComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
